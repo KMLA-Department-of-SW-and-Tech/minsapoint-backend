@@ -165,7 +165,7 @@ export class AccusationService {
       for (const row of rows) {
         if (!row.trim()) continue;
         
-        const [accuserId, defendantId, date, article, schoolPoints, dormPoints, totalPoints] = row.split(',');
+        const [accuserId, defendantId, date, article, schoolPoints, dormPoints] = row.split(',');
         
         const accusationDto: CreateAccusationDto = {
           accuserId: accuserId.trim(),
@@ -174,7 +174,6 @@ export class AccusationService {
           article: article.trim(),
           schoolPoints: Number(schoolPoints),
           dormPoints: Number(dormPoints),
-          totalPoints: Number(totalPoints),
         };
 
         const accusation = await this.createAccusation(accusationDto);

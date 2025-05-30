@@ -44,6 +44,5 @@ export interface Accusation {
   article: string;
   schoolPoints: number;
   dormPoints: number;
-  totalPoints: number;
   valid: boolean;
 }

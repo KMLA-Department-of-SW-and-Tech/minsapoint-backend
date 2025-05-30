@@ -31,10 +31,6 @@ export class CreateAccusationDto {
   @IsNumber()
   @Min(0)
   dormPoints: number;
-
-  @IsNumber()
-  @Min(0)
-  totalPoints: number;
 }
 
 export class UpdateAccusationDto {
@@ -51,11 +47,6 @@ export class UpdateAccusationDto {
   @IsNumber()
   @Min(0)
   dormPoints?: number;
-
-  @IsOptional()
-  @IsNumber()
-  @Min(0)
-  totalPoints?: number;
 }
 
 export class AccusationResponseDto {
@@ -66,7 +57,6 @@ export class AccusationResponseDto {
   article: string;
   schoolPoints: number;
   dormPoints: number;
-  totalPoints: number;
   valid: boolean;
 }
 
