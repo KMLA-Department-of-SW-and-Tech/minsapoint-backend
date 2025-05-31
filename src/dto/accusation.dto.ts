@@ -31,6 +31,10 @@ export class CreateAccusationDto {
   @IsNumber()
   @Min(0)
   dormPoints: number;
+
+  @IsNumber()
+  @Min(0)
+  courtId: number;
 }
 
 export class UpdateAccusationDto {
@@ -47,6 +51,11 @@ export class UpdateAccusationDto {
   @IsNumber()
   @Min(0)
   dormPoints?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  courtId?: number;
 }
 
 export class AccusationResponseDto {
@@ -58,6 +67,7 @@ export class AccusationResponseDto {
   schoolPoints: number;
   dormPoints: number;
   valid: boolean;
+  courtId: number;
 }
 
 export class AccusationFilters {
@@ -82,6 +92,11 @@ export class AccusationFilters {
   @IsString()
   @MaxLength(100)
   studentId?: string;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  courtId?: number;
 }
 
 export class FileUploadDto {

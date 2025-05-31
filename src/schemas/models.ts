@@ -2,7 +2,7 @@ export enum UserRole {
   STUDENT = 'STUDENT',
   ACCUSER = 'ACCUSER',
   DEPT_OF_JUSTICE = 'DEPT_OF_JUSTICE',
-  ADMIN = 'ADMIN'
+  ADMIN = 'ADMIN',
 }
 
 export interface BaseUser {
@@ -45,4 +45,5 @@ export interface Accusation {
   schoolPoints: number;
   dormPoints: number;
   valid: boolean;
+  courtId: number;
 }

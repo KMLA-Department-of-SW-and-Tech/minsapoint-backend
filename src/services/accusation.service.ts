@@ -29,7 +29,7 @@ export class AccusationService {
 
   async getAccusation(id: string): Promise<AccusationResponseDto> {
     const accusationDoc = await getDoc(doc(db, this.accusationsCollection, id));
-    
+
     if (!accusationDoc.exists()) {
       throw new NotFoundException(`Accusation with ID ${id} not found`);
     }
@@ -68,6 +68,11 @@ export class AccusationService {
       conditions.push(where('defendantId', '==', filters.studentId));
     }
 
+    // Add court filter if provided
+    if (filters.courtId !== undefined) {
+      conditions.push(where('courtId', '==', filters.courtId));
+    }
+
     // If no date range is provided, default to current week
     if (!filters.startDate && !filters.endDate) {
       const today = new Date();
@@ -79,13 +84,14 @@ export class AccusationService {
     }
 
     // Create query
-    const q = conditions.length > 0
-      ? query(collection(db, this.accusationsCollection), ...conditions)
-      : collection(db, this.accusationsCollection);
+    const q =
+      conditions.length > 0
+        ? query(collection(db, this.accusationsCollection), ...conditions)
+        : collection(db, this.accusationsCollection);
 
     // Execute query
     const snapshot = await getDocs(q);
-    
+
     return snapshot.docs.map((doc) => ({
       _id: doc.id,
       ...doc.data(),
@@ -96,7 +102,7 @@ export class AccusationService {
     createAccusationDto: CreateAccusationDto,
   ): Promise<AccusationResponseDto> {
     const accusationDoc = doc(collection(db, this.accusationsCollection));
-    
+
     const accusationData = {
       ...createAccusationDto,
       valid: false, // New accusations are invalid by default
@@ -159,14 +165,22 @@ export class AccusationService {
       // Parse file content (assuming CSV format)
       const content = file.buffer.toString();
       const rows = content.split('\n').slice(1); // Skip header row
-      
+
       const createdAccusations: AccusationResponseDto[] = [];
 
       for (const row of rows) {
         if (!row.trim()) continue;
-        
-        const [accuserId, defendantId, date, article, schoolPoints, dormPoints] = row.split(',');
-        
+
+        const [
+          accuserId,
+          defendantId,
+          date,
+          article,
+          schoolPoints,
+          dormPoints,
+          courtId,
+        ] = row.split(',');
+
         const accusationDto: CreateAccusationDto = {
           accuserId: accuserId.trim(),
           defendantId: defendantId.trim(),
@@ -174,6 +188,7 @@ export class AccusationService {
           article: article.trim(),
           schoolPoints: Number(schoolPoints),
           dormPoints: Number(dormPoints),
+          courtId: Number(courtId),
         };
 
         const accusation = await this.createAccusation(accusationDto);
