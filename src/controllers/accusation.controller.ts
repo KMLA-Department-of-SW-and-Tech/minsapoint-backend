@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AccusationService } from '../services/accusation.service';
-import {
+import { 
   CreateAccusationDto,
   UpdateAccusationDto,
   AccusationResponseDto,

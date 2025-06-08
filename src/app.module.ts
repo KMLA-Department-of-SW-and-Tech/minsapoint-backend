@@ -6,6 +6,8 @@ import { AccusationController } from './controllers/accusation.controller';
 import { UserService } from './services/user.service';
 import { AccusationService } from './services/accusation.service';
 import { MulterModule } from '@nestjs/platform-express';
+import { AuthController } from './controllers/auth.controller';
+import { AuthService } from './services/auth.service';
 
 @Module({
   imports: [
@@ -19,11 +21,13 @@ import { MulterModule } from '@nestjs/platform-express';
     AppController,
     UserController,
     AccusationController,
+    AuthController,
   ],
   providers: [
     AppService,
     UserService,
     AccusationService,
+    AuthService,
   ],
 })
 export class AppModule {}
