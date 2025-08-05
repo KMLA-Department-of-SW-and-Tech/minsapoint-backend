@@ -3,7 +3,7 @@ import {
   NotFoundException,
   BadRequestException,
 } from '@nestjs/common';
-import { db } from '../config/firebase';
+import { db } from '../config/firebaseConfig';
 import {
   collection,
   doc,
