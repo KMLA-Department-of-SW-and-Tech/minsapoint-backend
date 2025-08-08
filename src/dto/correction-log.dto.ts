@@ -8,8 +8,7 @@ import {
 
 export class CreateCorrectionLogDto {
   @IsString()
-  @MaxLength(100)
-  correctionLogId: string;
+  correctedDoc: string;
 
   @IsDateString()
   date: string;
@@ -20,9 +19,9 @@ export class CreateCorrectionLogDto {
 
 }
 
-
 export class CorrectionLogResponseDto {
   _id: string;
+  correctedDoc: string;
   date: string;
   description: string;
 }
@@ -30,13 +29,17 @@ export class CorrectionLogResponseDto {
 
 export class CorrectionLogFilters {
   @IsOptional()
-  @IsDateString()
-  date?: string;
+  @IsString()
+  @MaxLength(128)
+  _id?: string;
 
   @IsOptional()
   @IsString()
-  @MaxLength(100)
-  correctionLogId?: string;
+  correctedDocs?: string;
+
+  @IsOptional()
+  @IsDateString()
+  date?: string;
 
   @IsOptional()
   @IsString()

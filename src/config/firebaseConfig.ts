@@ -10,6 +10,6 @@ admin.initializeApp({
   }),
 });
 const firebaseAdmin = admin;
+const db = admin.firestore();
 
-
-export { firebaseAdmin };
+export { firebaseAdmin, db };

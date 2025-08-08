@@ -13,19 +13,19 @@ import { CreateCorrectionLogDto, CorrectionLogResponseDto } from '../dto/correct
 export class CorrectionLogController {
   constructor(private readonly correctionLogService: CorrectionLogService) {}
 
-  @Get('list')
-  async listCorrectionLogs(): Promise<CorrectionLogResponseDto[]> {
-    return this.correctionLogService.listCorrectionLogs();
-  }
-
   @Get(':id')
   async getCorrectionLog(@Param('id') id: string): Promise<CorrectionLogResponseDto> {
     return this.correctionLogService.getCorrectionLog(id);
   }
 
+  @Get('list')
+  async listCorrectionLogs(): Promise<CorrectionLogResponseDto[]> {
+    return this.correctionLogService.listCorrectionLogs();
+  }
+
   @Post()
-  async createCorrectionLog(@Body() createCorrectionLogDto: CreateCorrectionLogDto): Promise<CorrectionLogResponseDto> {
-    return this.correctionLogService.createCorrectionLog(createCorrectionLogDto);
+  async createCorrectionLog(@Body() dto: CreateCorrectionLogDto): Promise<CorrectionLogResponseDto> {
+    return this.correctionLogService.createCorrectionLog(dto);
   }
 
   @Delete(':id')
