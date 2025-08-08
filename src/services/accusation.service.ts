@@ -15,7 +15,7 @@ import {
   query,
   where,
   QueryConstraint,
-} from 'firebase/firestore';
+} from 'firebase/firestore'; 
 import {
   CreateAccusationDto,
   UpdateAccusationDto,
@@ -28,7 +28,7 @@ export class AccusationService {
   private readonly accusationsCollection = 'accusations';
 
   async getAccusation(id: string): Promise<AccusationResponseDto> {
-    const accusationDoc = await getDoc(doc(db, this.accusationsCollection, id));
+    const accusationDoc = await getDoc(doc(db, this.accusationsCollection, id)); //need to use admin sdk method(YK)
     
     if (!accusationDoc.exists()) {
       throw new NotFoundException(`Accusation with ID ${id} not found`);

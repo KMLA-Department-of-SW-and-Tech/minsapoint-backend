@@ -47,3 +47,11 @@ export interface Accusation {
   totalPoints: number;
   valid: boolean;
 }
+
+
+export interface CorrectionLog {
+  _id: string;
+  correctedDocs: string;
+  date: string;
+  description: string;
+}
