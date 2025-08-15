@@ -22,7 +22,7 @@ export interface Student extends BaseUser {
 
 export interface CorrectionLog {
   _id: string;
-  correctedDocs: string;
+  correctedDoc: string;
   date: string;
   description: string;
 }

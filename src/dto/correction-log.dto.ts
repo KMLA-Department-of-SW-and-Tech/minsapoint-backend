@@ -35,7 +35,7 @@ export class CorrectionLogFilters {
 
   @IsOptional()
   @IsString()
-  correctedDocs?: string;
+  correctedDoc?: string;
 
   @IsOptional()
   @IsDateString()

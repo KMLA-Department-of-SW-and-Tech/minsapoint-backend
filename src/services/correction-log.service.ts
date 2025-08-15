@@ -5,11 +5,11 @@ import { CreateCorrectionLogDto, CorrectionLogResponseDto } from '../dto/correct
 
 @Injectable()
 export class CorrectionLogService {
-  private readonly correctionLogsCollection = 'correctionLogs';
+  private readonly correctionLogsCollection = db.collection('correctionLogs');
 
   // get a single correction log with id
   async getCorrectionLog(id: string): Promise<CorrectionLogResponseDto> {
-    const correctionLogDoc = await db.collection(this.correctionLogsCollection).doc(id).get();
+    const correctionLogDoc = await this.correctionLogsCollection.doc(id).get();
     if(!correctionLogDoc.exists){
       throw new NotFoundException("CORRECTION LOG NOT FOUND");
     }
@@ -22,7 +22,7 @@ export class CorrectionLogService {
 
   // get all correction logs
   async listCorrectionLogs(): Promise<CorrectionLogResponseDto[]> {
-    const snapshot = await db.collection(this.correctionLogsCollection).get();
+    const snapshot = await this.correctionLogsCollection.get();
     return snapshot.docs.map((doc) => ({
       _id: doc.id,
       ...doc.data(),
@@ -32,7 +32,7 @@ export class CorrectionLogService {
 
   // create a single correction log
   async createCorrectionLog(dto: CreateCorrectionLogDto): Promise<CorrectionLogResponseDto> {
-    const docRef = await db.collection(this.correctionLogsCollection).add(dto);
+    const docRef = await this.correctionLogsCollection.add(dto);
     const now = admin.firestore.FieldValue.serverTimestamp();
     await docRef.set({...dto, date: now})
     return {
@@ -43,7 +43,7 @@ export class CorrectionLogService {
 
   // delete a single correction log
   async deleteCorrectionLog(id: string): Promise<void> {
-    await db.collection(this.correctionLogsCollection).doc(id).delete();
+    await this.correctionLogsCollection.doc(id).delete();
   }
 }
 
