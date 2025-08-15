@@ -1,5 +1,5 @@
 export interface CorrectionLog {
-  _id: string;
+  firebaseUID: string;
   correctedDocs: string;
   date: string;
   description: string;
