@@ -10,6 +10,9 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
+  @IsString()
+  firebaseUID: string;
+
   @IsOptional()
   @IsNumber()
   @Min(1000)
@@ -40,6 +43,10 @@ export class CreateUserDto {
 }
 
 export class UpdateUserDto {
+  @IsOptional()
+  @IsString()
+  firebaseUID?: string;
+
   @IsOptional()
   @IsNumber()
   @Min(1000)
@@ -73,6 +80,7 @@ export class UpdateUserDto {
 
 export class UserResponseDto {
   _id: string;
+  firebaseUID: string;
   role: UserRole;
   name: string;
   studentNumber?: number;

@@ -6,8 +6,7 @@ export enum UserRole {
 }
 
 export interface BaseUser {
-  _id: string;
-  firebase_uid: string;
+  firebaseUID: string;
   role: UserRole;
   name: string;
 }
