@@ -21,7 +21,7 @@ export interface Student extends BaseUser {
 }
 
 export interface CorrectionLog {
-  firebaseUID: string;
+  _id: string;
   correctedDocs: string;
   date: string;
   description: string;

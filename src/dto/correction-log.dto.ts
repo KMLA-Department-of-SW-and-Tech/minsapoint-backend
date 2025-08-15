@@ -20,7 +20,7 @@ export class CreateCorrectionLogDto {
 }
 
 export class CorrectionLogResponseDto {
-  firebaseUID: string;
+  _id: string;
   correctedDoc: string;
   date: string;
   description: string;
@@ -31,7 +31,7 @@ export class CorrectionLogFilters {
   @IsOptional()
   @IsString()
   @MaxLength(128)
-  firebaseUID?: string;
+  _id?: string;
 
   @IsOptional()
   @IsString()
