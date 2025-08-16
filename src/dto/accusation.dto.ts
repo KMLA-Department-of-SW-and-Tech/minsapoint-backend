@@ -85,7 +85,7 @@ export class AccusationResponseDto {
   valid: boolean;
 }
 
-export class AccusationFilters {
+export class AccusationFilterDto {
   @IsOptional()
   @IsDateString()
   startDate?: string;
