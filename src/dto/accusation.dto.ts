@@ -7,25 +7,9 @@ import {
   Min,
   MaxLength,
 } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateAccusationDto {
-  @IsOptional()
-  @IsNumber()
-  @Min(0)
-  courtId?: number;
-
-  @IsString()
-  @MaxLength(100)
-  accuserId: string;
-
-  @IsString()
-  @MaxLength(100)
-  defendantId: string;
-
-  @IsOptional()
-  @IsDateString()
-  date?: string;
-
   @IsString()
   @MaxLength(500)
   article: string;
@@ -34,9 +18,9 @@ export class CreateAccusationDto {
   @Min(0)
   penaltyPoints: number;
 
-  @IsOptional()
-  @IsBoolean()
-  valid?: boolean;
+  @IsString()
+  @MaxLength(100)
+  defendantIds: string[];
 }
 
 export class UpdateAccusationDto {
@@ -96,6 +80,7 @@ export class AccusationFilterDto {
 
   @IsOptional()
   @IsBoolean()
+  @Transform(({value}) => value === 'true')
   valid?: boolean;
 
   @IsOptional()
@@ -106,10 +91,11 @@ export class AccusationFilterDto {
   @IsOptional()
   @IsString()
   @MaxLength(100)
-  studentId?: string;
+  defendantId?: string;
 
   @IsOptional()
   @IsNumber()
   @Min(0)
+  @Transform(({value}) => parseInt(value, 10))
   courtId?: number;
 }

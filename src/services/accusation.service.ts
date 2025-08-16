@@ -26,9 +26,11 @@ export class AccusationService {
     let query: FirebaseFirestore.Query = this.accusationsCollection;
     if(filters.startDate !== undefined) query = query.where('date', '>=', new Date(filters.startDate));
     if(filters.endDate !== undefined) query = query.where('date', '<=', new Date(filters.endDate));
-    if(filters.valid !== undefined) query = query.where('valid', '==', filters.valid);
+    if(filters.valid !== undefined) {
+        query = query.where('valid', '==', filters.valid);
+    }
     if(filters.accuserId !== undefined) query = query.where('accuserId', '==', filters.accuserId);
-    if(filters.studentId !== undefined) query = query.where('studentId', '==', filters.studentId);
+    if(filters.defendantId !== undefined) query = query.where('defendantId', '==', filters.defendantId);
     if(filters.courtId !== undefined) query = query.where('courtId', '==', filters.courtId);
 
     const snapshot = await query.get();
@@ -37,6 +39,31 @@ export class AccusationService {
       _id: doc.id,
       ...doc.data(),
     })) as AccusationResponseDto[];
+  }
+
+  async createAccusation(
+    createAccusationDto: CreateAccusationDto,
+    user: any, // Assuming user is passed from the request context
+  ): Promise<void> {
+    // if (!user || !user.id) {
+    //   throw new BadRequestException('User information is required');
+    // }
+
+    const accusationData = createAccusationDto.defendantIds.map((defendantId) => ({
+      courtId: null,
+      accuserId: null,//user.id, 
+      defendantId: defendantId,
+      date: new Date().toISOString(),
+      article: createAccusationDto.article,
+      penaltyPoints: createAccusationDto.penaltyPoints,
+      valid: true, 
+    }));
+
+    accusationData.forEach(async (accusationData) => {
+        await this.accusationsCollection.add(accusationData);
+    });
+
+    return;
   }
 
   async updateAccusation(

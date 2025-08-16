@@ -7,6 +7,7 @@ import {
   Param,
   Body,
   Query,
+  Req,
 } from '@nestjs/common';
 import { AccusationService } from '../services/accusation.service';
 import {
@@ -15,6 +16,7 @@ import {
   AccusationResponseDto,
   AccusationFilterDto,
 } from '../dto/accusation.dto';
+import { create } from 'domain';
 
 @Controller('api/accusation')
 export class AccusationController {
@@ -28,6 +30,13 @@ export class AccusationController {
   @Get(':id')
   async getAccusation(@Param('id') id: string): Promise<AccusationResponseDto> {
     return this.accusationService.getAccusation(id);
+  }
+
+  @Post()
+  async creatAccusation(
+    @Body() createAccusationDto: CreateAccusationDto,
+    @Req() req: any): Promise<void> {
+    return this.accusationService.createAccusation(createAccusationDto, req.user);
   }
 
   @Patch(':id')
