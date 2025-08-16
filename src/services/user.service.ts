@@ -33,7 +33,6 @@ export class UserService {
         ? {
             penaltyPoints: 0,
             rewardPoints: 0,
-            totalPoints: 0,
             hasCourt: false,
           }
         : {}),

@@ -16,7 +16,6 @@ export interface Student extends BaseUser {
   studentNumber: number;
   penaltyPoints: number;
   rewardPoints: number;
-  totalPoints: number;
   hasCourt: boolean;
 }
 

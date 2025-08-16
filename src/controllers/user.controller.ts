@@ -14,14 +14,14 @@ import { CreateUserDto, UpdateUserDto, UserResponseDto } from '../dto/user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get(':id')
-  async getUser(@Param('id') id: string): Promise<UserResponseDto> {
-    return this.userService.getUser(id);
-  }
-
   @Get('list')
   async listUsers(): Promise<UserResponseDto[]> {
     return this.userService.listUsers();
+  }
+  
+  @Get(':id')
+  async getUser(@Param('id') id: string): Promise<UserResponseDto> {
+    return this.userService.getUser(id);
   }
 
   @Post()

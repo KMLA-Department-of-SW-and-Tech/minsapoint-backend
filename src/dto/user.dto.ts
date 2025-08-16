@@ -34,10 +34,6 @@ export class CreateUserDto {
   rewardPoints?: number;
 
   @IsOptional()
-  @IsNumber()
-  totalPoints?: number;
-
-  @IsOptional()
   @IsBoolean()
   hasCourt?: boolean;
 }
@@ -70,10 +66,6 @@ export class UpdateUserDto {
   rewardPoints?: number;
 
   @IsOptional()
-  @IsNumber()
-  totalPoints?: number;
-
-  @IsOptional()
   @IsBoolean()
   hasCourt?: boolean;
 }
@@ -86,6 +78,5 @@ export class UserResponseDto {
   studentNumber?: number;
   penaltyPoints?: number;
   rewardPoints?: number;
-  totalPoints?: number;
   hasCourt?: boolean;
 }
