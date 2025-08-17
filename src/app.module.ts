@@ -7,6 +7,8 @@ import { CorrectionLogController } from './controllers/correction-log.controller
 import { CorrectionLogService } from './services/correction-log.service';
 import { AccusationController } from './controllers/accusation.controller';
 import { AccusationService } from './services/accusation.service';
+import { MeController } from './controllers/me.controller';
+import { MeService } from './services/me.service';
 @Module({
   imports: [],
   controllers: [AppController, UserController, CorrectionLogController, AccusationController],
