@@ -33,7 +33,7 @@ export class AccusationController {
   }
 
   @Post()
-  async creatAccusation(
+  async createAccusation(
     @Body() createAccusationDto: CreateAccusationDto,
     @Req() req: any): Promise<void> {
     return this.accusationService.createAccusation(createAccusationDto, req.user);

@@ -9,7 +9,7 @@ import {
 import { MeService } from '../services/me.service';
 import { UpdateUserDto, UserResponseDto } from '../dto/user.dto';
 
-@Controller('api/user')
+@Controller('api/me')
 export class MeController {
   constructor(private readonly meService: MeService) {}
   
