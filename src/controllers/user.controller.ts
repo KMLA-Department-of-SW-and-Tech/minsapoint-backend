@@ -41,4 +41,9 @@ export class UserController {
   async deleteUser(@Param('id') id: string): Promise<void> {
     return this.userService.deleteUser(id);
   }
+
+  @Get('name/:id')
+  async getUsername(@Param('id') id: string): Promise<string> {
+    return this.userService.getUsername(id);
+  }
 }

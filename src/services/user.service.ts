@@ -78,4 +78,13 @@ export class UserService {
 
     await docRef.delete();
   }
+
+  async getUsername(id: string): Promise<string> {
+    const snapshot = await this.usersCollection.doc(id).get();
+    if (!snapshot.exists) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    return snapshot.data()!.username
+  }
 }
