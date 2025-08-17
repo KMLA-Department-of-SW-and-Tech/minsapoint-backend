@@ -7,7 +7,20 @@ import { UserRole } from '../schemas/models';
 export class MeService {
   private readonly usersCollection = db.collection('users');
 
-  async getMe(user: any): Promise<UserResponseDto> {
+  async getUserFromFirebaseUID(firebaseUID: string): Promise<UserResponseDto> {
+    const snapshot = await this.usersCollection.where('firebaseUID', '==', firebaseUID).limit(1).get();
+    //console.log(snapshot);
+    console.log(snapshot.empty);
+    if(snapshot.empty) {
+      throw new NotFoundException(`User not found`);
+    }
+    return {
+      _id: snapshot.docs[0].id,
+      ...snapshot.docs[0].data(),
+    } as UserResponseDto;
+  }
+  
+  /* async getMe(user: any): Promise<UserResponseDto> {
     const snapshot = await this.usersCollection.where('firebaseUID', '==', user.uid).get();
     if(!snapshot.empty) {
         throw new NotFoundException(`User not found`);
@@ -16,7 +29,7 @@ export class MeService {
         _id: snapshot.docs[0].id,
         ...snapshot.docs[0].data(),
     } as UserResponseDto;
-  }
+  } */
 
   async updateMe(user:any, updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
     const snapshot = await this.usersCollection.where('firebaseUID', '==', user.uid).limit(1).get();

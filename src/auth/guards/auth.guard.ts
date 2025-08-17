@@ -9,9 +9,9 @@ import * as admin from 'firebase-admin';
 
 function getTokenFromRequest(req: Request): string | null {
     const authHeader = req.headers.authorization || req.headers.Authorization;
-    if(!authHeader || typeof(authHeader) !== "string" || authHeader?.startsWith('Bearer') || authHeader?.split("").length !==2)
-    throw new UnauthorizedException('invlaid token');
-    return null;
+    if(!authHeader || typeof(authHeader) !== "string" || !(authHeader?.startsWith('Bearer')) || authHeader?.split(" ").length !==2)
+        throw new UnauthorizedException('invlaid token');
+    return authHeader.split(" ")[1];
 }
 
 @Injectable()
@@ -23,9 +23,9 @@ export class AuthGuard implements CanActivate {
         try {
             const decoded = await admin.auth().verifyIdToken(token, true);
             const uid = decoded.uid;
-            const roles = (decoded.role as string[] | undefined) ?? [];
-            (req as any).user = { uid, roles };
-            
+            // const roles = (decoded.role as string[] | undefined) ?? [];
+            // (req as any).user = { uid, roles };
+            (req as any).firebaseUID = uid;
             return true;
         } catch (e) {
             throw new UnauthorizedException('Invalid or expired Firebase ID token');
