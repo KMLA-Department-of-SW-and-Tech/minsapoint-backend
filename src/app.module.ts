@@ -11,7 +11,7 @@ import { MeController } from './controllers/me.controller';
 import { MeService } from './services/me.service';
 @Module({
   imports: [],
-  controllers: [AppController, UserController, CorrectionLogController, AccusationController,],
-  providers: [AppService, UserService, CorrectionLogService, AccusationService],
+  controllers: [AppController, UserController, CorrectionLogController, AccusationController, MeController],
+  providers: [AppService, UserService, CorrectionLogService, AccusationService, MeService],
 })
 export class AppModule {}
