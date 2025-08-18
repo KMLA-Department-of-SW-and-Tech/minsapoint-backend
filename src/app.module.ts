@@ -9,6 +9,8 @@ import { AccusationController } from './controllers/accusation.controller';
 import { AccusationService } from './services/accusation.service';
 import { MeController } from './controllers/me.controller';
 import { MeService } from './services/me.service';
+import { AdminController } from './controllers/admin.controller';
+import { AdminService } from './services/admin.service';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
