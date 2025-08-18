@@ -43,15 +43,15 @@ export class AccusationService {
 
   async createAccusation(
     createAccusationDto: CreateAccusationDto,
-    user: any, // Assuming user is passed from the request context
+    user: any, 
   ): Promise<void> {
-    // if (!user || !user.id) {
-    //   throw new BadRequestException('User information is required');
-    // }
+    if (!user || !user.id) {
+      throw new BadRequestException('User information is required');
+    }
 
     const accusationData = createAccusationDto.defendantIds.map((defendantId) => ({
       courtId: null,
-      accuserId: null,//user.id, 
+      accuserId: user.id, 
       defendantId: defendantId,
       date: new Date().toISOString(),
       article: createAccusationDto.article,
