@@ -19,8 +19,8 @@ import { APP_GUARD } from '@nestjs/core';
   imports: [],
   controllers: [AppController, UserController, CorrectionLogController, AccusationController, MeController, AdminController],
   providers: [AuthGuard, AppService, UserService, CorrectionLogService, AccusationService, MeService, AdminService,
-    // { provide: APP_GUARD, useClass: AuthGuard },  
-    // { provide: APP_GUARD, useClass: RolesGuard }
+    { provide: APP_GUARD, useClass: AuthGuard },  
+    { provide: APP_GUARD, useClass: RolesGuard }
   ],
   
 })
