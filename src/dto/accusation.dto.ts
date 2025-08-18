@@ -6,6 +6,8 @@ import {
   IsDateString,
   Min,
   MaxLength,
+  ArrayNotEmpty,
+  IsArray,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
 
@@ -18,8 +20,10 @@ export class CreateAccusationDto {
   @Min(0)
   penaltyPoints: number;
 
-  @IsString()
-  @MaxLength(100)
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsString({ each: true })
+  @MaxLength(100, { each: true })
   defendantIds: string[];
 }
 

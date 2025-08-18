@@ -85,6 +85,6 @@ export class UserService {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
 
-    return snapshot.data()!.name
+    return snapshot.data()!.name;
   }
 }
