@@ -6,9 +6,12 @@ import {
 } from 'class-validator';
 
 
-export class CreateCorrectionLogDto {
+export class CreateAlarmLogDto {
   @IsString()
-  correctedDoc: string;
+  recipientId: string;
+
+  @IsString()
+  senderId: string;
 
   @IsDateString()
   date: string;
@@ -19,15 +22,16 @@ export class CreateCorrectionLogDto {
 
 }
 
-export class CorrectionLogResponseDto {
+export class AlarmLogResponseDto {
   _id: string;
-  correctedDoc: string;
+  recipientId: string;
+  senderId: string;
   date: string;
   description: string;
 }
 
 
-export class CorrectionLogFilters {
+export class AlarmLogFilters {
   @IsOptional()
   @IsString()
   @MaxLength(128)
@@ -35,7 +39,11 @@ export class CorrectionLogFilters {
 
   @IsOptional()
   @IsString()
-  correctedDoc?: string;
+  recipientId?: string;
+
+  @IsOptional()
+  @IsString()
+  senderId?: string;
 
   @IsOptional()
   @IsDateString()

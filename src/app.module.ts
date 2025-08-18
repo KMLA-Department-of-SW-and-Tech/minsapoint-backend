@@ -14,11 +14,13 @@ import { AdminService } from './services/admin.service';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { AlarmLogService } from './services/alarm-log.service';
+import { AlarmLogController } from './controllers/alarm-log.controller';
 
 @Module({
   imports: [],
-  controllers: [AppController, UserController, CorrectionLogController, AccusationController, MeController],
-  providers: [AuthGuard, AppService, UserService, CorrectionLogService, AccusationService, MeService,
+  controllers: [AppController, UserController, CorrectionLogController, AccusationController, MeController, AlarmLogController],
+  providers: [AuthGuard, AppService, UserService, CorrectionLogService, AccusationService, MeService, AlarmLogService,
     { provide: APP_GUARD, useClass: AuthGuard },  
     { provide: APP_GUARD, useClass: RolesGuard }
   ],
