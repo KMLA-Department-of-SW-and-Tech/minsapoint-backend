@@ -65,4 +65,8 @@ export class AdminService {
 
         return await this.createCourtList();
     }
+
+    async createSecondCourtList(): Promise<any> {
+        return await this.createCourtList();
+    }
 }

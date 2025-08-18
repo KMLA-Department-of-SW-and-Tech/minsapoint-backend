@@ -17,4 +17,9 @@ export class AdminController {
   async createFirstCourtList(): Promise<any> {
     return this.adminService.createFirstCourtList();
   }
+
+  @Get('secondCourtList')
+  async createSecondCourtList(): Promise<any> {
+    return this.adminService.createSecondCourtList();
+  }
 }
