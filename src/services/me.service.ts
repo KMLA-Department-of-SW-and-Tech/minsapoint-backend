@@ -9,18 +9,19 @@ export class MeService {
 
   async getUserFromFirebaseUID(firebaseUID: string): Promise<UserResponseDto> {
     const snapshot = await this.usersCollection.where('firebaseUID', '==', firebaseUID).limit(1).get();
-    //console.log(snapshot);
-    console.log(snapshot.empty);
     if(snapshot.empty) {
       throw new NotFoundException(`User not found`);
     }
+    /* remove */
+    console.log("meService success");
+    console.log(snapshot.docs[0].data());
     return {
       _id: snapshot.docs[0].id,
       ...snapshot.docs[0].data(),
     } as UserResponseDto;
   }
   
-  /* async getMe(user: any): Promise<UserResponseDto> {
+  async getMe(user: any): Promise<UserResponseDto> {
     const snapshot = await this.usersCollection.where('firebaseUID', '==', user.uid).get();
     if(!snapshot.empty) {
         throw new NotFoundException(`User not found`);
@@ -29,7 +30,7 @@ export class MeService {
         _id: snapshot.docs[0].id,
         ...snapshot.docs[0].data(),
     } as UserResponseDto;
-  } */
+  }
 
   async updateMe(user:any, updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
     const snapshot = await this.usersCollection.where('firebaseUID', '==', user.uid).limit(1).get();

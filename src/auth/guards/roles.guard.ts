@@ -1,6 +1,5 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Observable } from 'rxjs';
 import { ROLES_KEY } from '../../decorators/roles.decorator';
 import { UserRole } from 'src/schemas/models';
 
@@ -15,9 +14,14 @@ export class RolesGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
-    
-    const user = context.switchToHttp().getRequest().user;
-    //const hasRequiredRole = requiredRoles.some((role) => user?.roles?.includes(role));
-    return true /* hasRequiredRole */
+    if(!requiredRoles || requiredRoles.length === 0) return true;
+    const req = context.switchToHttp().getRequest();
+    const role = req.role;
+    //console.log(req.firebaseUID);
+    console.log("roles.guard success");
+    console.log(role);
+    if(!role) throw new ForbiddenException('Role is missing');
+
+    return requiredRoles.includes(role);
   }
 }

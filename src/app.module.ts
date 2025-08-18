@@ -11,10 +11,15 @@ import { MeController } from './controllers/me.controller';
 import { MeService } from './services/me.service';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [],
   controllers: [AppController, UserController, CorrectionLogController, AccusationController, MeController],
-  providers: [AuthGuard, RolesGuard, AppService, UserService, CorrectionLogService, AccusationService, MeService],
+  providers: [AuthGuard, AppService, UserService, CorrectionLogService, AccusationService, MeService,
+    { provide: APP_GUARD, useClass: AuthGuard },  
+    { provide: APP_GUARD, useClass: RolesGuard }
+  ],
+  
 })
 export class AppModule {}
