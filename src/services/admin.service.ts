@@ -41,11 +41,14 @@ export class AdminService {
         let prevIdx = 0;
         for(let i = 1; i < defendantName.length; i++) {
             if(defendantName[i] !== prev) {
-                ws!.mergeCells(`C${10 + prevIdx}:C${10 + i}`);
+                console.log(`C${10 + prevIdx}:C${10 + i-1}`);
+                ws!.mergeCells(`C${10 + prevIdx}:C${10 + i-1}`);
                 prev = defendantName[i];
                 prevIdx = i;
             }
         }
+        console.log(`C${10 + prevIdx}:C${10 + defendantName.length-1}`);
+        ws!.mergeCells(`C${10 + prevIdx}:C${10 + defendantName.length-1}`);
 
         await wb.xlsx.writeFile(outPath); 
 
