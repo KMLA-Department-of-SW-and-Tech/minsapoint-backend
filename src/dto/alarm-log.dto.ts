@@ -10,9 +10,6 @@ export class CreateAlarmLogDto {
   @IsString()
   recipientId: string;
 
-  @IsString()
-  senderId: string;
-
   @IsDateString()
   date: string;
 
@@ -25,7 +22,6 @@ export class CreateAlarmLogDto {
 export class AlarmLogResponseDto {
   _id: string;
   recipientId: string;
-  senderId: string;
   date: string;
   description: string;
 }
@@ -40,10 +36,6 @@ export class AlarmLogFilters {
   @IsOptional()
   @IsString()
   recipientId?: string;
-
-  @IsOptional()
-  @IsString()
-  senderId?: string;
 
   @IsOptional()
   @IsDateString()
