@@ -10,6 +10,7 @@ import {
 import { MeService } from '../services/me.service';
 import { UpdateUserDto, UserResponseDto } from '../dto/user.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { AccusationResponseDto } from 'src/dto/accusation.dto';
 
 @UseGuards(AuthGuard)
 @Controller('api/me')
@@ -22,12 +23,17 @@ export class MeController {
     return this.meService.getUserFromFirebaseUID(req.firebaseUID);
   }
 
+  @Get('accusations')
+  async getMyAccusations(@Req() req): Promise<AccusationResponseDto[]> {
+    return this.meService.getMyAccusations(req.firebaseUID);
+  }
+
   @Patch()
   async updateMe(
     @Req() req,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<UserResponseDto> {
     if(!req.user) throw new UnauthorizedException("No user on request");
-    return this.meService.updateMe(req.user, updateUserDto);
+    return this.meService.updateMe(req.firebaseUID, updateUserDto);
   }
 }

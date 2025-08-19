@@ -50,6 +50,9 @@ export class AdminService {
         console.log(`C${10 + prevIdx}:C${10 + defendantName.length-1}`);
         ws!.mergeCells(`C${10 + prevIdx}:C${10 + defendantName.length-1}`);
 
+        const arrayBuf = await wb.xlsx.writeBuffer();
+        return Buffer.from(arrayBuf as ArrayBuffer);
+
         await wb.xlsx.writeFile(outPath); 
 
         return allValidAccSnapshots.docs.map((doc) => ({
