@@ -25,7 +25,7 @@ export class MeController {
 
   @Get('accusations')
   async getMyAccusations(@Req() req): Promise<AccusationResponseDto[]> {
-    return this.meService.getMyAccusations(req.user);
+    return this.meService.getMyAccusations(req.firebaseUID);
   }
 
   @Patch()
@@ -34,6 +34,6 @@ export class MeController {
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<UserResponseDto> {
     if(!req.user) throw new UnauthorizedException("No user on request");
-    return this.meService.updateMe(req.user, updateUserDto);
+    return this.meService.updateMe(req.firebaseUID, updateUserDto);
   }
 }

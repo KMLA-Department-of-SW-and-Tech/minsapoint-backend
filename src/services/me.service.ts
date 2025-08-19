@@ -24,8 +24,8 @@ export class MeService {
     } as UserResponseDto;
   }
   
-  async getMe(user: any): Promise<UserResponseDto> {
-    const snapshot = await this.usersCollection.where('firebaseUID', '==', user.uid).get();
+  async getMe(firebaseUID: string): Promise<UserResponseDto> {
+    const snapshot = await this.usersCollection.where('firebaseUID', '==', firebaseUID).get();
     if(snapshot.empty) {
         throw new NotFoundException(`User not found`);
     }
@@ -35,8 +35,8 @@ export class MeService {
     } as UserResponseDto;
   }
 
-  async updateMe(user:any, updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
-    const snapshot = await this.usersCollection.where('firebaseUID', '==', user.uid).limit(1).get();
+  async updateMe(firebaseUID: string, updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
+    const snapshot = await this.usersCollection.where('firebaseUID', '==', firebaseUID).limit(1).get();
     if(snapshot.empty) {
         throw new NotFoundException(`User not found`);
     }
@@ -55,9 +55,8 @@ export class MeService {
     } as UserResponseDto;
   } 
 
-  async getMyAccusations(user: any): Promise<AccusationResponseDto[]> {
-    user = {uid: "YUEY0BXl13c4ey9etiv0sptpqcn1"}
-    const snapshot = await this.usersCollection.where('firebaseUID', '==', user.uid).limit(1).get();
+  async getMyAccusations(firebaseUID: string): Promise<AccusationResponseDto[]> {
+    const snapshot = await this.usersCollection.where('firebaseUID', '==', firebaseUID).limit(1).get();
     if(snapshot.empty) {
         throw new NotFoundException(`User not found`);
     }
