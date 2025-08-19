@@ -53,7 +53,7 @@ export class UserController {
     return this.userService.deleteUser(id);
   }
 
-  @Roles(UserRole.ADMIN, UserRole.ACCUSER, UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ACCUSER, UserRole.STUDENT)
   @Get('name/:id')
   async getUsername(@Param('id') id: string): Promise<string> {
     return this.userService.getUsername(id);
