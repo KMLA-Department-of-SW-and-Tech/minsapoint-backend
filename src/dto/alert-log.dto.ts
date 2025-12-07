@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 
 
-export class CreateAlarmLogDto {
+export class CreateAlertLogDto {
   @IsString()
   recipientId: string;
 
@@ -17,7 +17,7 @@ export class CreateAlarmLogDto {
 
 }
 
-export class AlarmLogResponseDto {
+export class AlertLogResponseDto {
   _id: string;
   recipientId: string;
   date: string;
@@ -26,7 +26,7 @@ export class AlarmLogResponseDto {
 }
 
 
-export class AlarmLogFilters {
+export class AlertLogFilters {
   @IsOptional()
   @IsString()
   @MaxLength(128)

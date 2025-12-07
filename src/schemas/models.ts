@@ -26,3 +26,10 @@ export interface CorrectionLog {
   description: string;
 }
 
+export interface AlertLog{
+  _id: string;
+  recipientId: string;
+  date: string;
+  description: string;
+  isRead: boolean;
+}

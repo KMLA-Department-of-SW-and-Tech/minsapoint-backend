@@ -48,5 +48,5 @@ export class CorrectionLogService {
 }
 
 
-// if the accuser change 'valid' field, should we also make the a correction log allong with alarm log? 
+// if the accuser change 'valid' field, should we also make the a correction log allong with alert log? 
 // if we make correction log for them either, the authorization logic will get futher complex(YK)
