@@ -29,16 +29,26 @@ export class AlarmLogService {
     })) as AlarmLogResponseDto[];
   }
 
-
   // create a single alarm log
   async createAlarmLog(dto: CreateAlarmLogDto): Promise<AlarmLogResponseDto> {
-    const docRef = await this.alarmLogsCollection.add(dto);
-    const now = admin.firestore.FieldValue.serverTimestamp();
-    await docRef.set({...dto, date: now})
+    const now = new Date();//admin.firestore.FieldValue.serverTimestamp();
+    const docRef = await this.alarmLogsCollection.add({
+      date: String(now), 
+      isRead: false,
+      ...dto
+    });
     return {
       _id: docRef.id,
+      isRead: false,
+      date: String(now),
       ...dto
     };
+  }
+
+  async markAsRead(id: string): Promise<AlarmLogResponseDto> {
+    const alarmLogDoc = this.alarmLogsCollection.doc(id);
+    await alarmLogDoc.update({isRead: true});
+    return this.getAlarmLog(id);
   }
 
   // delete a single alarm log

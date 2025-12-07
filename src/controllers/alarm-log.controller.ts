@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Patch,
   Delete,
   Param,
   Body,
@@ -14,15 +15,10 @@ import { UserRole } from 'src/schemas/models';
 import { Roles } from 'src/decorators/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 
-@UseGuards(AuthGuard, RolesGuard)
+// @UseGuards(AuthGuard, RolesGuard)
 @Controller('api/alarm-log')
 export class AlarmLogController {
   constructor(private readonly AlarmLogService: AlarmLogService) {}
-
-  @Get(':id')
-  async getAlarmLog(@Param('id') id: string): Promise<AlarmLogResponseDto> {
-    return this.AlarmLogService.getAlarmLog(id);
-  }
 
   @Get('list')
   async listAlarmLogs(): Promise<AlarmLogResponseDto[]> {
@@ -31,10 +27,20 @@ export class AlarmLogController {
     return this.AlarmLogService.listAlarmLogs();
   }
 
-  @Roles(UserRole.ADMIN, UserRole.ACCUSER)
+  @Get(':id')
+  async getAlarmLog(@Param('id') id: string): Promise<AlarmLogResponseDto> {
+    return this.AlarmLogService.getAlarmLog(id);
+  }
+
+  // @Roles(UserRole.ADMIN, UserRole.ACCUSER)
   @Post()
   async createAlarmLog(@Body() dto: CreateAlarmLogDto): Promise<AlarmLogResponseDto> {
     return this.AlarmLogService.createAlarmLog(dto);
+  }
+
+  @Patch('read/:id')
+  async markAsRead(@Param('id') id: string): Promise<AlarmLogResponseDto> {
+    return this.AlarmLogService.markAsRead(id);
   }
 
   @Delete(':id')

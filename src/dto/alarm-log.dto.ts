@@ -3,15 +3,13 @@ import {
   IsOptional,
   IsDateString,
   MaxLength,
+  IsBoolean,
 } from 'class-validator';
 
 
 export class CreateAlarmLogDto {
   @IsString()
   recipientId: string;
-
-  @IsDateString()
-  date: string;
 
   @IsString()
   @MaxLength(500)
@@ -24,6 +22,7 @@ export class AlarmLogResponseDto {
   recipientId: string;
   date: string;
   description: string;
+  isRead: boolean;
 }
 
 
@@ -46,6 +45,9 @@ export class AlarmLogFilters {
   @MaxLength(100) // make it longer later if needed(YK)
   description?: string;
 
+  @IsOptional()
+  @IsBoolean()
+  isRead?: boolean;
 }
 
 

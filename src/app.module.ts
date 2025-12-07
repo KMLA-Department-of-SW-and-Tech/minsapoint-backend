@@ -20,9 +20,9 @@ import { AlarmLogController } from './controllers/alarm-log.controller';
 @Module({
   imports: [],
   controllers: [AppController, UserController, CorrectionLogController, AccusationController, MeController, AlarmLogController, AdminController],
-  providers: [AuthGuard, AppService, UserService, CorrectionLogService, AccusationService, MeService, AlarmLogService, AdminService,
-    { provide: APP_GUARD, useClass: AuthGuard },  
-    { provide: APP_GUARD, useClass: RolesGuard }
+  providers: [/*AuthGuard,*/ AppService, UserService, CorrectionLogService, AccusationService, MeService, AlarmLogService, AdminService,
+    // { provide: APP_GUARD, useClass: AuthGuard },  
+    // { provide: APP_GUARD, useClass: RolesGuard }
   ],
   
 })
