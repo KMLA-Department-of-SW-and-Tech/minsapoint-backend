@@ -7,9 +7,10 @@ import {
   Param,
   Body,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { AlertLogService } from '../services/alert-log.service'; 
-import { CreateAlertLogDto, AlertLogResponseDto } from '../dto/alert-log.dto';
+import { CreateAlertLogDto, AlertLogResponseDto, AlertLogFilterDto } from '../dto/alert-log.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { UserRole } from 'src/schemas/models';
 import { Roles } from 'src/decorators/roles.decorator';
@@ -21,10 +22,10 @@ export class AlertLogController {
   constructor(private readonly AlertLogService: AlertLogService) {}
 
   @Get('list')
-  async listAlertLogs(): Promise<AlertLogResponseDto[]> {
+  async listAlertLogs(@Query() query: AlertLogFilterDto): Promise<AlertLogResponseDto[]> {
     /* remove */
     console.log("correction-log.controller list success");
-    return this.AlertLogService.listAlertLogs();
+    return this.AlertLogService.listAlertLogs(query);
   }
 
   @Get(':id')

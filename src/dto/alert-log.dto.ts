@@ -26,7 +26,7 @@ export class AlertLogResponseDto {
 }
 
 
-export class AlertLogFilters {
+export class AlertLogFilterDto {
   @IsOptional()
   @IsString()
   @MaxLength(128)
@@ -35,15 +35,6 @@ export class AlertLogFilters {
   @IsOptional()
   @IsString()
   recipientId?: string;
-
-  @IsOptional()
-  @IsDateString()
-  date?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(100) // make it longer later if needed(YK)
-  description?: string;
 
   @IsOptional()
   @IsBoolean()

@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from '../config/firebaseConfig';
 import * as admin from 'firebase-admin';
-import { CreateAlertLogDto, AlertLogResponseDto } from '../dto/alert-log.dto';
+import { CreateAlertLogDto, AlertLogResponseDto, AlertLogFilterDto } from '../dto/alert-log.dto';
 
 @Injectable()
 export class AlertLogService {
@@ -19,10 +19,14 @@ export class AlertLogService {
     } as AlertLogResponseDto;
   }
 
-
   // get all alert logs
-  async listAlertLogs(): Promise<AlertLogResponseDto[]> {
-    const snapshot = await this.alertLogsCollection.get();
+  async listAlertLogs(filters: AlertLogFilterDto): Promise<AlertLogResponseDto[]> {
+    let query: FirebaseFirestore.Query = this.alertLogsCollection;
+    if (filters.recipientId !== undefined) query = query.where('recipientId', '==', filters.recipientId);
+    if (filters.isRead !== undefined) query = query.where('isRead', '==', filters.isRead);
+    
+    const snapshot = await query.get();
+
     return snapshot.docs.map((doc) => ({
       _id: doc.id,
       ...doc.data(),

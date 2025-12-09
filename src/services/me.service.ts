@@ -4,11 +4,13 @@ import { UpdateUserDto, UserResponseDto } from '../dto/user.dto';
 import { UserRole } from '../schemas/models';
 import { AccusationResponseDto, AccusationFilterDto } from '../dto/accusation.dto';
 import { AccusationService } from './accusation.service';
+import { AlertLogService } from './alert-log.service';
+import { AlertLogFilterDto, AlertLogResponseDto } from 'src/dto/alert-log.dto';
 
 @Injectable()
 export class MeService {
   private readonly usersCollection = db.collection('users');
-  constructor(private readonly accusationService: AccusationService) {}
+  constructor(private readonly accusationService: AccusationService, private readonly alertLogService: AlertLogService) {}
 
   async getUserFromFirebaseUID(firebaseUID: string): Promise<UserResponseDto> {
     const snapshot = await this.usersCollection.where('firebaseUID', '==', firebaseUID).limit(1).get();
@@ -63,5 +65,10 @@ export class MeService {
 
     const query = {defendantId: snapshot.docs[0].id};
     return this.accusationService.listAccusations(query as AccusationFilterDto);
+  }
+
+  async getMyAlertLogs(firebaseUID: string): Promise<AlertLogResponseDto[]> {
+    const query = {recipientId: firebaseUID};
+    return this.alertLogService.listAlertLogs(query as AlertLogFilterDto);
   }
 }

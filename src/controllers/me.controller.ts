@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { MeService } from '../services/me.service';
 import { UpdateUserDto, UserResponseDto } from '../dto/user.dto';
+import { AlertLogResponseDto } from 'src/dto/alert-log.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { AccusationResponseDto } from 'src/dto/accusation.dto';
 
@@ -26,6 +27,11 @@ export class MeController {
   @Get('accusations')
   async getMyAccusations(@Req() req): Promise<AccusationResponseDto[]> {
     return this.meService.getMyAccusations(req.firebaseUID);
+  }
+
+  @Get('alert-log')
+  async getMyAlertLogs(@Req() req): Promise<AlertLogResponseDto[]> {
+    return this.meService.getMyAlertLogs(req.firebaseUID);
   }
 
   @Patch()
